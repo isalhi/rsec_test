@@ -19,6 +19,33 @@ header {
   clear: both;
 }
 
+comment {
+  background: #ff8c00;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid black;
+  width: 100%;
+}
+
+name {
+  font-style: bold;
+  color: #4d4d4d;
+  margin-left: 10px;
+  position: relative;
+}
+
+mess {
+
+}
+
+created {
+  font-style: italic;
+  font-size: 70%;
+  color: #999999;
+  margin-right: 10px;
+  position: relative;
+}
+
 advice {
   font-size: 80%;
   font-style: italic;

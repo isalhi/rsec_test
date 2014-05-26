@@ -97,5 +97,27 @@
   <% @comment=Comment.new %>
   <% @comment.id_activity=@activity.id
       @comment.id_creator=current_user.id %>
-  <%= render partial: 'comments/form', object: @comment %>
+  <p>
+    <%= render partial: 'comments/form', object: @comment %>
+  </p>
+  <p>
+      <% com=Comment.all
+        com.each do |c|
+          if c.id_activity==@activity.id
+            %>
+            <p>
+              <comment> 
+                <name>
+                  <%uss=User.find_by_id(c.id_creator)%>
+                  <%= uss.name %>
+                </name>
+                <!--<created><%=c.created_at%> </created>-->
+                <mess><%=c.message%></mess>
+              </comment>
+            </p>
+            <%
+          end
+        end
+      %>
+  </p>
 </p>
