@@ -1,0 +1,38 @@
+<h1>Listing activities</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Creator</th>
+      <th>Location</th>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Duration</th>
+      <th>Cathegory</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @activities.each do |activity| %>
+      <tr>
+        <td><%@uss = User.find_by_id(activity.id_creator)%><%= @uss.name %></td>
+        <td><%@loc = Location.find_by_id(activity.id_location)%><%= @loc.name %></td>
+        <td><%= activity.name %></td>
+        <td><%= activity.date %></td>
+        <td><%= activity.duration %></td>
+        <td><%@cat = Cathegory.find_by_id(activity.id_cathegory)%><%= @cat.name %></td>
+        <td><%= link_to 'Show', activity %></td>
+        <td><%= link_to 'Edit', edit_activity_path(activity) %></td>
+        <td><%= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Create your activity !', new_activity_path %> <br>
+

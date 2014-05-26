@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Creator:</strong>
+  <%uss=User.find_by_id(@comment.id_creator)%><%= link_to "#{uss.name}", user_path(uss.id) %>
+</p>
+
+<p>
+  <strong>Activity:</strong>
+  <%acc=Activity.find_by_id(@comment.id_activity)%><%= link_to "#{acc.name}", activity_path(acc.id) %>
+</p>
+
+<p>
+  <strong>Message:</strong>
+  <%= @comment.message %>
+</p>
+
+<%= link_to 'Edit', edit_comment_path(@comment) %> |
+<%= link_to 'Back', comments_path %>

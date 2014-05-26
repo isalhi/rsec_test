@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>User since:</strong>
+  <%= @user.created_at %>
+</p>
+
+<going>
+  <div>
+    <% 
+    @count = 0
+    @target = nil
+    @usacts = UserAct.all 
+        @usacts.each do |f|
+          if f.id_user == @user.id %>
+            <% @target = Activity.find(f.id_activity)
+            if @target != nil 
+              if @count ==0 %>
+                <strong><%= "#{@user.name}" %> is going to these events:</strong>
+                <% @count = 1%>
+            <% end
+            end%>
+              <p>
+                <%= link_to "#{@target.name}", activity_path(@target.id) %>
+              </p>
+            <% 
+          end  
+        end%>
+  </div>
+</going>
+
+<p>
+	<%= link_to 'Edit Profile', edit_user_path(@user) %> |
+	<%= link_to 'List of Users', users_path %> |
+	<%= link_to 'List of Current Events', activities_path %>
+</P>

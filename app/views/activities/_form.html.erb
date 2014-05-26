@@ -1,0 +1,62 @@
+<%= form_for(@activity) do |f| %>
+  <% if @activity.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@activity.errors.count, "error") %> prohibited this activity from being saved:</h2>
+
+      <ul>
+      <% @activity.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ 
+  <div class="field">
+    <%= f.label "Name of the Event" %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label "Location" %><br>
+    <% 
+        options=[]
+        locs=Location.all 
+        options<<["Select One", ""]
+        locs.each do |l|
+          options<<[l.name,l.id]
+        end
+    %>
+    <%= f.select :id_location, options_for_select(options)%>
+  </div>
+  <div class="field">
+    <%= f.label :date %><br>
+    <%= f.text_field :date %>
+  </div>
+  <div class="field">
+    <%= f.label :duration %><br>
+    <%= f.text_field :duration %> <!-- display list -->
+  </div>
+  <div class="field">
+    <%= f.label "Cathegory" %><br>
+    <% 
+        options=[]
+        cats=Cathegory.all 
+        options<<["Select One", ""]
+        cats.each do |c|
+          options<<[c.name,c.id]
+        end
+    %>
+    <%= f.select :id_cathegory, options_for_select(options)%>
+  </div>
+  <div class="field">
+    <%= f.label "Description" %><br>
+    <%= f.text_area :description, rows: 15, cols: 80 %>
+  </div>
+  <div class="field">
+    <%= f.label "Is it private?" %><br>
+    <%= f.check_box :privacy %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,111 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Results: </h1>
+
+<%@countname =0%>
+
+<p>
+  <!--we search given criteria -->
+  <ul>
+  <% 
+  	  matches = []
+  	  @zero=0
+	  @acts=Activity.all
+	  @acts.each do |a|
+	  		if @search.actname != ""
+	  			#hay que separar el string por palabras que formaran los criteria de busqueda
+	  			words = @search.actname.split(/\W+/)
+	  			#words = @search.actname.split(",")
+	  			words.each do |w|
+	  				#primero el nombre de la activity
+	  				title=a.name.split(/\W+/)
+	  				title.each do |t|
+				  		if t == w
+				  			@countname+=1
+				  			matches << a
+				  		end
+				  	end
+			  		#luego el creador
+			  		uss=User.find_by_id(a.id_creator)
+			  		namek=uss.name.split(/\W+/)
+			  		namek.each do |n|
+				  		if n == w
+				  			@countname+=1
+				  			matches << a
+				  		end
+			  		end
+			  		#ahora cathegory
+			  		cat=Cathegory.find_by_id(a.id_cathegory)
+			  		cath=cat.name.split(/\W+/)
+			  		cath.each do |c|
+				  		if c == w
+				  			@countname+=1
+				  			matches << a
+				  		end
+			  		end
+			  		#ahora location
+			  		loc = Location.find_by_id(a.id_location)
+			  		loch = loc.name.split(/\W+/)
+			  		loch.each do |l|
+				  		if l == w
+				  			@countname+=1
+				  			matches << a
+				  		end
+				  	end
+			  		#por ultimo la descripcion
+			  		desk = a.description.split(/\W+/)
+			  		desk.each do |d|
+			  			if d == w
+			  				@countname+=1
+				  			matches << a
+			  			end
+			  		end
+	  			end
+		  	else
+		  		if @zero==0
+			  		%>
+			  			<p><advice>No criteria provided.</advice></p>
+			  		<%
+			  		@zero=1	
+		  		end			
+	  		end
+	  	end
+	  	#ahora mostramos todos los matches
+	  	counter=0
+	  	alreadyOut=false
+	  	out = []
+	  	matches.each do |m|
+	  		out.each do |o|
+	  			if o.name==m.name
+	  				alreadyOut=true
+	  			end
+	  		end
+	  		if(!alreadyOut)
+	  			out<<m
+	  			counter+=1
+	  		end
+	  		alreadyOut=false
+	  	end
+	  	out.each do |o|
+	  	%>
+	  		<li>
+	  			<%= link_to "#{o.name}", activity_path(o.id) %> 
+	  			<advice>
+		  			<ul>
+		  				<li>Creator: <%=User.find_by_id(o.id_creator).name%></li>
+		  				<li>Place: <%=Location.find_by_id(o.id_location).name%></li>
+		  				<li>Cathegory: <%=Cathegory.find_by_id(o.id_cathegory).name%></li>
+		  				<li>Description: "<%=o.description%>"</li>
+		  			</ul>
+	  			</advice>
+  			</li>	
+	  	<%
+	  	end
+  %>
+</ul>
+</p>
+
+<advice2> We found <%=counter%> results.</advice2>
+<p>
+<%= link_to 'Back', activities_path %>
+</p>
