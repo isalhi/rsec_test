@@ -13,50 +13,59 @@
 
  
   <div class="field">
-    <%= f.label "Name of the Event" %><br>
-    <%= f.text_field :name %>
+      <%= f.label "Location", :class => "field_title" %><br>
+      <% 
+          options=[]
+          locs=Location.all 
+          options<<["Select One", ""]
+          locs.each do |l|
+            options<<[l.name,l.id]
+          end
+      %>
+      <%= f.select :id_location, options_for_select(options), :class => "blank" %>
+    </div>
+  
+  <div class="field">
+    <%= f.label :name, :class => "field_title" %><br>
+    <%= f.text_field :name, :class => "blank" %>
   </div>
   <div class="field">
-    <%= f.label "Location" %><br>
-    <% 
-        options=[]
-        locs=Location.all 
-        options<<["Select One", ""]
-        locs.each do |l|
-          options<<[l.name,l.id]
-        end
-    %>
-    <%= f.select :id_location, options_for_select(options)%>
+    <%= f.label :date, :class => "field_title" %><br>
+    <%= f.text_field :date, :class => "blank" %>
   </div>
   <div class="field">
-    <%= f.label :date %><br>
-    <%= f.text_field :date %>
+    <%= f.label :duration, :class => "field_title" %><br>
+    <%= f.text_field :duration, :class => "blank" %> <!-- display list -->
   </div>
   <div class="field">
-    <%= f.label :duration %><br>
-    <%= f.text_field :duration %> <!-- display list -->
+      <%= f.label "Cathegory", :class => "field_title" %><br>
+      <% 
+          options=[]
+          cats=Cathegory.all 
+          options<<["Select One", ""]
+          cats.each do |c|
+            options<<[c.name,c.id]
+          end
+      %>
+      <%= f.select :id_cathegory, options_for_select(options), :class => "blank" %>
+    </div>
+  
+  <div class="field">
+    <%= f.label :description, :class => "field_title" %><br>
+    <%= f.text_area :description, rows: 15, cols: 80, :class => "blank" %>
   </div>
   <div class="field">
-    <%= f.label "Cathegory" %><br>
-    <% 
-        options=[]
-        cats=Cathegory.all 
-        options<<["Select One", ""]
-        cats.each do |c|
-          options<<[c.name,c.id]
-        end
-    %>
-    <%= f.select :id_cathegory, options_for_select(options)%>
-  </div>
-  <div class="field">
-    <%= f.label "Description" %><br>
-    <%= f.text_area :description, rows: 15, cols: 80 %>
-  </div>
-  <div class="field">
-    <%= f.label "Is it private?" %><br>
+    <%= f.label :privacy, :class => "field_title" %><br>
     <%= f.check_box :privacy %>
   </div>
+  <% if current_user.name == "administrator" %>
+  <div class="field">
+    <%= f.label :accepted, :class => "field_title" %><br>
+    <%= f.check_box :accepted %>
+  </div>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+

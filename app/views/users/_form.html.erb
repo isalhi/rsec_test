@@ -14,22 +14,22 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.label :name, :class => "field_title" %>
+    <%= f.text_field :name, :class => "blank" %>
   </div>
   <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
+    <%= f.label :email, :class => "field_title" %>
+    <%= f.text_field :email, :class => "blank" %>
   </div>
   <div class="field">
-    <%= f.label :password %><br>
-    <%= f.password_field :password %>
+    <%= f.label :password, :class => "field_title" %>
+    <%= f.password_field :password, :class => "blank" %>
   </div>
   <div class="field">
-    <%= f.label :password_confirmation, "Confimation" %><br>
-    <%= f.password_field :password_confirmation %>
+    <%= f.label :password_confirmation, "Confimation", :class => "field_title" %>
+    <%= f.password_field :password_confirmation, :class => "blank" %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Ready" %>
   </div>
 <% end %>
